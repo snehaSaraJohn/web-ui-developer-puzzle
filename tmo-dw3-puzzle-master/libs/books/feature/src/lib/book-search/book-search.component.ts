@@ -40,9 +40,9 @@ export class BookSearchComponent  {
   }
 
   addBookToReadingList(book: Book):void {
-    this.store.dispatch(addToReadingList({ book }));
-  }
+    this.store.dispatch(addToReadingList({ book: { ...book, isSnackBarOpen: true } }));
 
+  }
   searchExample():void {
     this.searchForm.controls.term.setValue('javascript');
     this.searchBooks();
