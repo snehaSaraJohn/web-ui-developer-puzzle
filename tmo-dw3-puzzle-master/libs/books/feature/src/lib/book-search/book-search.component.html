@@ -1,4 +1,4 @@
-<form [formGroup]="searchForm" (ngSubmit)="searchBooks()">
+<form [formGroup]="searchForm" >
   <mat-form-field floatLabel="never">
     <input
       autoFocus
@@ -7,10 +7,7 @@
       placeholder="Search for books to add to your reading list"
       formControlName="term"
     />
-    <button mat-icon-button matSuffix  aria-label="search">
-      <mat-icon>search</mat-icon>
-    </button>
-  </mat-form-field>
+    </mat-form-field>
 </form>
   <div class="error" *ngIf="getBooksError$ | async">
     <p aria-live="assertive">
