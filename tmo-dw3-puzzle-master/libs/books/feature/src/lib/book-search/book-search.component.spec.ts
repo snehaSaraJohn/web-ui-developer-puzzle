@@ -46,8 +46,8 @@ describe('BookSearchComponent', () => {
       spyOn(store, 'dispatch');
     });
 
-    it('should be called when we have value for search term ', fakeAsync(() => {
-
+    it('should dispatch searchBooks action to retrieve book details when search term is typed and actual time spent is equal to 500ms', fakeAsync(() => {
+      component.ngOnInit();
       component.searchForm.controls.term.setValue('Angular');
 
       tick(500);
@@ -56,7 +56,15 @@ describe('BookSearchComponent', () => {
         expect(store.dispatch).toHaveBeenCalledWith(searchBooks({ term: 'Angular' }))
       });
     }));
+    it('No action should be dispatched when we have value for search term and actual time spent after entering search term is less than 500ms', fakeAsync(() => {
+      component.ngOnInit();
+      component.searchForm.controls.term.setValue('Java');
 
+      tick(400);
+
+      expect(store.dispatch).not.toHaveBeenCalled();
+      discardPeriodicTasks();
+    })); 
     it('No task should be called  when we have no value for search', fakeAsync(() => {
 
       component.searchForm.controls.term.setValue('');
