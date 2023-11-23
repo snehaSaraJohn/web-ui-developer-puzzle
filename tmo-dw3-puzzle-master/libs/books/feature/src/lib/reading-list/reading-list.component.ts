@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { getReadingList, removeFromReadingList } from '@tmo/books/data-access';
+import { getReadingList, markBookAsFinished, removeFromReadingList } from '@tmo/books/data-access';
 import { ReadingListItem } from '@tmo/shared/models';
 import { Observable } from 'rxjs';
 
@@ -16,5 +16,16 @@ export class ReadingListComponent {
 
   removeFromReadingList(item):void {
     this.store.dispatch(removeFromReadingList({ item }));
+  }
+  markBookAsFinished(item: ReadingListItem): void {
+    this.store.dispatch(
+      markBookAsFinished({
+          item : {
+            ...item, 
+            finished: true, 
+            finishedDate: new Date().toISOString()
+          }
+        })
+    );
   }
 }

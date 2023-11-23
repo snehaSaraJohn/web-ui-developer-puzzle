@@ -12,7 +12,9 @@
 .reading-list {
   padding: $spacing-xxs;
 }
-
+.finish-read-button-icon {
+  color: $green10;
+}
 .reading-list-item {
   display: flex;
   justify-content: center;
