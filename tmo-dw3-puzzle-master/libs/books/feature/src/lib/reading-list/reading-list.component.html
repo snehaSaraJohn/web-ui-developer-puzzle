@@ -1,7 +1,7 @@
 <ng-container *ngIf="(readingList$ | async).length > 0; else empty">
   <div class="reading-list-item" *ngFor="let book of readingList$ | async">
     <div>
-      <img class="reading-list-item--cover" [src]="book.coverUrl"  alt="book-cover"/>
+      <img class="reading-list-item--cover" [src]="book.coverUrl" />
     </div>
     <div class="reading-list-item--details">
       <strong class="reading-list-item--details--title">{{ book.title }}</strong>
@@ -9,17 +9,35 @@
         {{ book.authors.join(',') }}
       </div>
     </div>
-    <div>
+      <div *ngIf="book.finished" class="reading-list-item-details-author" data-testing="finished-reading-date">
+        Completed reading on {{ book.finishedDate | date:'M/d/yyyy' }}
+      </div>
+      <div>
       <button
         mat-icon-button
         color="warn"
+        title="Click button to remove book"
         [attr.aria-label]="'Remove ' + book.title + ' from reading list'"
         (click)="removeFromReadingList(book)"
+        data-testing="remove-book-btn"
       >
         <mat-icon>remove_circle</mat-icon>
       </button>
     </div>
-  </div>
+      <div>
+        <button
+          mat-icon-button
+          data-testing="finish-read-book-btn"
+          class="finish-read-button-icon"
+          [attr.aria-label]="'Mark ' + book.title + ' book as finished in reading list'"
+          [attr.title]="book.finished ? 'Marked as finished' : 'Click button to mark as finished'"
+          [disabled]="book.finished"
+          (click)="markBookAsFinished(book)"
+        >
+          <mat-icon>check_circle</mat-icon>
+        </button>
+      </div>
+ </div>
 </ng-container>
 <ng-template #empty>
   <p class="empty">You haven't added any books to your reading list yet.</p>

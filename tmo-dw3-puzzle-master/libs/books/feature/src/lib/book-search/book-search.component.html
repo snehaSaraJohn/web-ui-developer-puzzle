@@ -50,7 +50,9 @@
               [disabled]="book.isAdded"
               [attr.aria-label]="'Want to Read ' + book.title"
             >
-              Want to Read
+            {{ 
+              book.finished ? 'Finished' : 'Want to Read'
+            }}
             </button>
           </div>
         </div>
